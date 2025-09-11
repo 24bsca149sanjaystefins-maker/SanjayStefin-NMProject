@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanjay Stefin Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset */
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      background: #2c3e50;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+    nav .logo {
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #3498db;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    header img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    header h1 {
+      margin: 1rem 0 0.3rem;
+      font-size: 2.2rem;
+    }
+    header p span {
+      color: #ffdd59;
+      font-weight: bold;
+    }
+    .typing {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      height: 25px;
+    }
+    .resume-btn {
+      margin-top: 1rem;
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background: #fff;
+      color: #2c3e50;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .resume-btn:hover {
+      background: #3498db;
+      color: white;
+    }
+
+    /* Sections */
+    section {
+      padding: 3rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h2 {
+      color: #2c3e50;
+      border-left: 5px solid #3498db;
+      padding-left: 10px;
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+    }
+
+    /* Project Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    /* Contact Form */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input, textarea {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background: #3498db;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #2c3e50;
+    }
+
+    /* Contact info */
+    .contact p {
+      margin: 0.8rem 0;
+      font-size: 1.1rem;
+    }
+    .contact a {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contact i {margin-right: 8px;}
+
+    /* Footer */
+    footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Back to Top */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: none;
+      font-size: 1.3rem;
+    }
+
+    /* Dark Mode */
+    .dark {
+      background: #1e272e;
+      color: #d2dae2;
+    }
+    .dark nav {background: #1e272e;}
+    .dark .card {background: #2f3640; color: #f5f6fa;}
+    .dark footer {background: #1e272e;}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">Sanjay Stefin Portfolio</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#internship">Internship</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button onclick="toggleDarkMode()" style="background:none; border:none; color:white; font-size:1.2rem; cursor:pointer;">
+      <i class="fas fa-adjust"></i>
+    </button>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <img src="https://i.ibb.co/ZwnKjTZ/IMG-20240709-WA0017.jpg" alt="Sanjay Stefin">
+    <h1>Sanjay Stefin S</h1>
+    <p>BCA Student | <span id="typing"></span></p>
+    <p>Sri Krishna Adithya College of Arts & Science <span id="typing"></span></p>
+    <a href="resume.pdf" class="resume-btn" download><i class="fas fa-download"></i> Download Resume</a>
+  </header>
+
+  <!-- Sections -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a passionate BCA student at Sri Krishna Adithya College of Arts and Science. 
+    I love exploring data-driven solutions, applying analytics, and building real-world projects that make an impact.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="cards">
+      <div class="card"><b>Binary Search using C</b><br>Implements Binary Search to find numbers efficiently.</div>
+      <div class="card"><b>Python Data Analysis</b><br>Analyzing datasets with Python libraries like Pandas & Matplotlib.</div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>Programming: Python, Java, C, C++</li>
+      <li>SQL & Data Analytics</li>
+      <li>UI/UX Design</li>
+      <li>Problem Solving & Research</li>
+    </ul>
+  </section>
+
+  <section id="internship">
+    <h2>Internship</h2>
+    <ul>
+      <li>UI/UX Design Internship – Hands-on design and prototyping.</li>
+      <li>Python Internship – Data analysis projects using Python.</li>
+    </ul>
+  </section>
+
+  <section id="achievements">
+    <h2>Achievements</h2>
+    <ul>
+      <li>Certification in Cloud Computing</li>
+      <li>Certification in Cyber Security</li>
+      <li>Certification in Python Programming</li>
+    </ul>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact</h2>
+    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:24bsca149sanjaystefins@skacas.ac.in">24bsca149sanjaystefins@skacas.ac.in</a></p>
+    <p><i class="fas fa-phone"></i>Phone: <a href="tel:+919865227022">+91 9865227022</a></p>
+
+    <h3>Send a Quick Message</h3>
+    <form onsubmit="sendMessage(event)">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Sanjay Stefin S | Portfolio</p>
+  </footer>
+
+  <!-- Back to Top -->
+  <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+  <script>
+    // Typing animation
+    const texts = ["Programmer", "UI/UX Enthusiast", "Problem Solver"];
+    let count = 0, index = 0, currentText = "", letter = "";
+    (function type(){
+      if(count === texts.length) count = 0;
+      currentText = texts[count];
+      letter = currentText.slice(0, ++index);
+      document.getElementById("typing").textContent = letter;
+      if(letter.length === currentText.length){
+        count++; index = 0;
+        setTimeout(type, 1000);
+      } else {
+        setTimeout(type, 120);
+      }
+    })();
+
+    // Scroll reveal
+    const sections = document.querySelectorAll("section");
+    window.addEventListener("scroll", () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      sections.forEach(sec => {
+        const secTop = sec.getBoundingClientRect().top;
+        if (secTop < triggerBottom) sec.classList.add("visible");
+      });
+
+      // Show back to top
+      document.getElementById("backToTop").style.display = window.scrollY > 300 ? "block" : "none";
+    });
+
+    // Back to Top
+    function scrollToTop(){
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+
+    // Contact form
+    function sendMessage(e){
+      e.preventDefault();
+      alert("✅ Message Sent Successfully!");
+      e.target.reset();
+    }
+
+    // Dark/Light mode toggle
+    function toggleDarkMode(){
+      document.body.classList.toggle("dark");
+    }
+  </script>
+
+</body>
+</html>
